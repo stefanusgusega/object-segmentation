@@ -20,7 +20,7 @@ function imgOut = laplacian(imgIn, threshold)
         1 -4 1;
         0 1 0];
 
-    convoluted = conv2(double(imgIn), double(mask))
+    convoluted = uint8(convn(double(imgIn), double(mask)))
 
     imgOut = convoluted
 
