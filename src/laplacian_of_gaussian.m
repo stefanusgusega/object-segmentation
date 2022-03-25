@@ -23,7 +23,9 @@ function imgOut = laplacian_of_gaussian(imgIn, sigma, mask_dim)
 
     % disp(mask_dim);
 
-    [U, V] = meshgrid(linspace(-mask_dim / 2, mask_dim / 2, mask_dim));
+    left_boundary = ceil(-mask_dim / 2) - 1;
+    right_boundary = floor(mask_dim / 2) + 1;
+    [U, V] = meshgrid(linspace(left_boundary, right_boundary, mask_dim));
 
     mask = log_mask(U, V, sigma);
     disp(mask);
