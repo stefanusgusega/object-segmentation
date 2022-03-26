@@ -39,7 +39,7 @@ function [imgOut] = detect_edge(imgIn, operator, T, sigma, T1, T2, mask_dim)
         resX = conv2(double(imgIn), double(filterX), 'same');
         resY = conv2(double(imgIn), double(filterY), 'same');
 
-        result = uint8(sqrt(resX.^2 + resY.^2));
+        result = sqrt(resX.^2 + resY.^2);
     elseif (strcmp(operator, 'canny'))
         imgOut = canny(imgIn, T1, T2, sigma)
     else
