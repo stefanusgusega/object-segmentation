@@ -35,12 +35,15 @@ function [imgOut] = detect_edge(imgIn, operator, T, sigma, T1, T2, mask_dim)
             mask = laplacian_of_gaussian(sigma, mask_dim);
     end
 
+    % Do convolution between input image and the mask
     if ismember(operator, {'sobel' 'prewitt' 'roberts'})
         resX = conv2(double(imgIn), double(filterX), 'same');
         resY = conv2(double(imgIn), double(filterY), 'same');
 
         result = sqrt(resX.^2 + resY.^2);
+
     elseif (strcmp(operator, 'canny'))
+        % If canny, directly output the resulting image
         imgOut = canny(imgIn, T1, T2, sigma)
     else
         result = conv2(double(imgIn), double(mask), 'same')
