@@ -4,12 +4,6 @@ function imgOut = canny(imgIn, T1, T2, sigma)
     % Syntax: imgOut = canny(imgIn, T1, T2, sigma)
     %
     % This is the shortcut to edge function of MATLAB function
-    [height, width, dim] = size(imgIn)
-
-    % Check the dimension
-    if ~(dim == 1)
-        throw(MException('ImageError:sizeNotOne', 'The input image should be 1D array. Current: %dD array.', dim))
-    end
 
     % Check the T1 and T2 within the range
     if (~(T1 >= 0 & T2 >= 0 & T1 <= 255 & T2 <= 255))
