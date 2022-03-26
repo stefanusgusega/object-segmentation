@@ -25,11 +25,11 @@ function [imgOut] = detect_edge(imgIn, operator, T)
 
     resX = conv2(double(imgIn), double(filterX), 'same');
     resY = conv2(double(imgIn), double(filterY), 'same');
-    
+
     result = uint8(sqrt(resX.^2 + resY.^2));
-    
-    % tresholding
-    imgOut = tresholding(result,T);
+
+    % thresholding
+    imgOut = thresholding(result, T);
     imshow(imgIn);
     figure, imshow(imgOut);
 
