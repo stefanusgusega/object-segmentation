@@ -51,8 +51,7 @@ function [imgOut] = detect_edge(imgIn, operator, T, sigma, T1, T2, mask_dim)
 
     % Typecasting to unsigned integer except Canny
     if (~(strcmp(operator, 'canny')))
-        % imgOut = thresholding(result, T);
-        imgOut = uint8(result)
+        imgOut = thresholding(uint8(result), T);
     end
 
     imshow(imgIn);
