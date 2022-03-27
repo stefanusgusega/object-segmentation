@@ -44,9 +44,9 @@ function [imgOut] = detect_edge(imgIn, operator, T, sigma, T1, T2, mask_dim)
 
     elseif (strcmp(operator, 'canny'))
         % If canny, directly output the resulting image
-        imgOut = canny(imgIn, T1, T2, sigma)
+        imgOut = canny(imgIn, T1, T2, sigma);
     else
-        result = conv2(double(imgIn), double(mask), 'same')
+        result = conv2(double(imgIn), double(mask), 'same');
     end
 
     % Typecasting to unsigned integer except Canny
