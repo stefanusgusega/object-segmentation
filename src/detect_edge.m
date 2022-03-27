@@ -9,7 +9,7 @@ function [imgOut] = detect_edge(imgIn, operator, T, sigma, laplacian_version, T1
 
     % Check if threshold defined. If not, then set automatically to 127
     if (nargin == 2 | isempty(T))
-        T = median(imgIn, 'all');
+        T = 0.09 * max(imgIn, [], 'all');
     end
 
     if (~(T >= 0 && T <= 255))
