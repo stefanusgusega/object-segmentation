@@ -1,4 +1,4 @@
-function mask = laplacian()
+function mask = laplacian(version)
     %laplacian - Generate Laplacian mask
     %
     % Syntax: mask = laplacian()
