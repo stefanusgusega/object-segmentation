@@ -1,4 +1,4 @@
-function [imgOut] = detect_edge(imgIn, operator, T, sigma, T1, T2, mask_dim)
+function [imgOut] = detect_edge(imgIn, operator, T, sigma, laplacian_version, T1, T2, mask_dim)
     % Check the dimension
     [height, width, dim] = size(imgIn);
 
@@ -17,7 +17,7 @@ function [imgOut] = detect_edge(imgIn, operator, T, sigma, T1, T2, mask_dim)
     end
 
     % Check if mask_dim defined. If not, then set automatically based on sigma
-    if nargin == 6
+    if nargin == 7
         mask_dim = ceil(sigma * 3) * 2 + 1;
     end
 
@@ -30,7 +30,7 @@ function [imgOut] = detect_edge(imgIn, operator, T, sigma, T1, T2, mask_dim)
         case 'roberts'
             [filterX, filterY] = roberts();
         case 'laplacian'
-            mask = laplacian();
+            mask = laplacian(laplacian_version);
         case 'log'
             mask = laplacian_of_gaussian(sigma, mask_dim);
     end

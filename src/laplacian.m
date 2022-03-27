@@ -1,10 +1,22 @@
 function mask = laplacian(version)
     %laplacian - Generate Laplacian mask
     %
-    % Syntax: mask = laplacian()
+    % Syntax: mask = laplacian(version)
     %
-    mask = [0 1 0;
-        1 -4 1;
-        0 1 0];
+
+    % Check the version
+    if ~ismember(version, {'original' 'diagonal'})
+        throw(MException('VersionError:wrongVersion', "The Laplacian versio should be one of these: 'original' or 'diagonal'. Current: %s.", version))
+    end
+
+    if strcmp(version, 'original')
+        mask = [0 1 0;
+            1 -4 1;
+            0 1 0];
+    elseif strcmp(version, 'diagonal')
+        mask = [1 1 0;
+            1 -8 1;
+            1 1 1];
+    end
 
 end
