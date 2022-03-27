@@ -14,7 +14,7 @@ function mask = laplacian(version)
             1 -4 1;
             0 1 0];
     elseif strcmp(version, 'diagonal')
-        mask = [1 1 0;
+        mask = [1 1 1;
             1 -8 1;
             1 1 1];
     end
