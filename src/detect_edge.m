@@ -8,12 +8,12 @@ function [imgOut] = detect_edge(imgIn, operator, T, sigma, laplacian_version, T1
     end
 
     % Check if threshold defined. If not, then set automatically to 127
-    if nargin == 2
-        T = 127
+    if (nargin == 2 | isempty(T))
+        T = median(imgIn, 'all');
     end
 
     if (~(T >= 0 && T <= 255))
-        throw(MException('RangeError:outOfRange', 'The T should be in range [0, 255]. Current: T = %d', T))
+        throw(MException('RangeError:outOfRange', 'The T should be in range [0, 255]. Current: T = %d', T));
     end
 
     % Check if mask_dim defined. If not, then set automatically based on sigma
