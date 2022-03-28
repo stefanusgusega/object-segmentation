@@ -17,7 +17,7 @@ function [imgOut] = detect_edge(imgIn, operator, T, sigma, laplacian_version, T1
     end
 
     % Check if mask_dim defined. If not, then set automatically based on sigma
-    if nargin == 7
+    if (nargin == 7 | isempty(mask_dim))
         mask_dim = ceil(sigma * 3) * 2 + 1;
     end
 
