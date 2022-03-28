@@ -49,7 +49,7 @@ function [imgOut] = detect_edge(imgIn, operator, T, sigma, laplacian_version, T1
         result = conv2(double(imgIn), double(mask), 'same');
     end
 
-    % Typecasting to unsigned integer except Canny
+    % Typecasting to unsigned integer except Canny and then apply thresholding
     if (~(strcmp(operator, 'canny')))
         imgOut = thresholding(uint8(result), T);
     end
