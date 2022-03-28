@@ -1,4 +1,5 @@
 function [imgOut] = thresholding(imgIn, T)
+    % Thresholding
     [height, width] = size(imgIn);
 
     imgOut = zeros(height, width, 'logical');
@@ -16,3 +17,6 @@ function [imgOut] = thresholding(imgIn, T)
         end
 
     end
+
+    % imgOut = imgIn > T;
+end
