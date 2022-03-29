@@ -54,7 +54,7 @@ function [imgOut] = detect_edge(imgIn, operator, T, sigma, laplacian_version, T1
         imgOut = thresholding(uint8(result), T);
     end
 
-    imshow(imgIn);
-    figure, imshow(imgOut);
+    %imshow(imgIn);
+    %figure, imshow(imgOut);
 
 end
