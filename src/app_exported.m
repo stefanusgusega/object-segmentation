@@ -113,7 +113,7 @@ classdef app_exported < matlab.apps.AppBase
                     if strcmp(technique, 'canny')
                         T1 = str2num(app.GradientT1EditField.Value);
                         T2 = str2num(app.GradientT2EditField.Value);
-                        sigma = Tstr2num(app.GradientSigmaEditField.Value);
+                        sigma = app.GradientSigmaEditField.Value;
                         imgOut = detect_edge(im, technique, [], sigma, [], T1, T2, []);
                     else
                         T = str2num(app.GradientThresholdEditField.Value);
@@ -164,11 +164,15 @@ classdef app_exported < matlab.apps.AppBase
             if strcmp(app.GradientTechniqueDropDown.Value, 'Canny')
                 % Hide Threshold
                 app.GradientThresholdEditField.Visible = "off";
+                app.ThresholdEditFieldLabel_2.Visible = "off";
             else
                 % Hide T1, T2, sigma
                 app.GradientT1EditField.Visible = "off";
+                app.T1Label.Visible = "off";
                 app.GradientT2EditField.Visible = "off";
+                app.T1Label_2.Visible = "off";
                 app.GradientSigmaEditField.Visible = "off";
+                app.SigmaEditFieldLabel_2.Visible = "off";
 
             end
 
@@ -259,22 +263,45 @@ classdef app_exported < matlab.apps.AppBase
             if strcmp(value, 'Canny')
                 % Hide Threshold
                 app.GradientThresholdEditField.Visible = "off";
+                app.ThresholdEditFieldLabel_2.Visible = "off";
 
+                
                 % Show T1, T2, sigma
                 app.GradientT1EditField.Visible = "on";
+                app.T1Label.Visible = "on";
+                
                 app.GradientT2EditField.Visible = "on";
-                app.SigmaEditFieldLabel.Visible = "on";
+                app.T1Label_2.Visible = "on";
+
+                app.SigmaEditFieldLabel_2.Visible = "on";
+                app.GradientSigmaEditField.Visible = "on";
+
             else
                 % Hide T1, T2, sigma
                 app.GradientT1EditField.Visible = "off";
+                app.T1Label.Visible = "off";
+
                 app.GradientT2EditField.Visible = "off";
-                app.SigmaEditFieldLabel.Visible = "off";
+                app.T1Label_2.Visible = "off";
+
+                app.SigmaEditFieldLabel_2.Visible = "off";
+                app.GradientSigmaEditField.Visible = "off";
+
 
                 % Show Threshold
                 app.GradientThresholdEditField.Visible = "on";
+                app.ThresholdEditFieldLabel_2.Visible = "on";
 
             end
 
+        end
+
+        % Button pushed function: GradientTransformButton
+        function GradientTransformButtonPushed(app, event)
+            d = uiprogressdlg(app.UIFigure, 'Title', 'Segmenting image...', 'Indeterminate', 'on');
+            drawnow
+            updateImage(app, app.gradientFname, 1);
+            close(d);
         end
     end
 
@@ -335,6 +362,7 @@ classdef app_exported < matlab.apps.AppBase
 
             % Create GradientTransformButton
             app.GradientTransformButton = uibutton(app.GradientTab, 'push');
+            app.GradientTransformButton.ButtonPushedFcn = createCallbackFcn(app, @GradientTransformButtonPushed, true);
             app.GradientTransformButton.Position = [480 217 100 23];
             app.GradientTransformButton.Text = 'Transform';
 
@@ -346,7 +374,7 @@ classdef app_exported < matlab.apps.AppBase
 
             % Create GradientTechniqueDropDown
             app.GradientTechniqueDropDown = uidropdown(app.GradientTab);
-            app.GradientTechniqueDropDown.Items = {'Sobel', 'Roberts', 'Prewittt', 'Canny'};
+            app.GradientTechniqueDropDown.Items = {'Sobel', 'Roberts', 'Prewitt', 'Canny'};
             app.GradientTechniqueDropDown.ValueChangedFcn = createCallbackFcn(app, @GradientTechniqueDropDownValueChanged, true);
             app.GradientTechniqueDropDown.Position = [320 217 100 22];
             app.GradientTechniqueDropDown.Value = 'Sobel';
