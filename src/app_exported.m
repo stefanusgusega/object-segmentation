@@ -303,6 +303,22 @@ classdef app_exported < matlab.apps.AppBase
             updateImage(app, app.gradientFname, 1);
             close(d);
         end
+
+        % Button pushed function: GradientBrowseButton
+        function GradientBrowseButtonPushed(app, event)
+            % Display uigetfile dialog
+            filterspec = {'*.jpg;*.tif;*.png;*.gif;*.bmp','All Image Files'};
+            [f, p] = uigetfile(filterspec);
+            
+            % Make sure user didn't cancel uigetfile dialog
+            if (ischar(p))
+               app.gradientFname = [p f];
+               d = uiprogressdlg(app.UIFigure, 'Title', 'Segmenting image...', 'Indeterminate', 'on');
+               drawnow
+               updateImage(app, app.gradientFname, 1);
+               close(d);
+            end
+        end
     end
 
     % Component initialization
@@ -357,6 +373,7 @@ classdef app_exported < matlab.apps.AppBase
 
             % Create GradientBrowseButton
             app.GradientBrowseButton = uibutton(app.GradientTab, 'push');
+            app.GradientBrowseButton.ButtonPushedFcn = createCallbackFcn(app, @GradientBrowseButtonPushed, true);
             app.GradientBrowseButton.Position = [80 216 100 23];
             app.GradientBrowseButton.Text = 'Browse';
 
