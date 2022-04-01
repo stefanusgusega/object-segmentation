@@ -58,7 +58,8 @@ classdef app_exported < matlab.apps.AppBase
         end
         
         function updateImage(app, fname, tab_num)
-            techniqueDropDownArr = [app.GradientTechniqueDropDown, app.LaplacianTechniqueDropDown];
+            % techniqueDropDownArr = [app.GradientTechniqueDropDown, app.LaplacianTechniqueDropDown];
+            
             % Read the image
             try
                 im = imread(fname);
@@ -85,7 +86,7 @@ classdef app_exported < matlab.apps.AppBase
                 case 1
                     % Display the grayscale image
                     edge_only = getOutput(app, im, tab_num);
-                    segmented = segment(edge_only, im, lower(techniqueDropDownArr(tab_num).Value));
+                    segmented = segment(edge_only, im) %, lower(techniqueDropDownArr(tab_num).Value));
                     imagesc(currEdgeImageAxes, edge_only);
                     imagesc(currSegmentImageAxes, segmented);
 
@@ -94,7 +95,7 @@ classdef app_exported < matlab.apps.AppBase
                     edge_2 = getOutput(app, im(:,:,2), tab_num);
                     edge_3 = getOutput(app, im(:,:,3), tab_num);
                     edge_only = edge_1 & edge_2 & edge_3;
-                    segmented = segment(edge_only, im, lower(techniqueDropDownArr(tab_num).Value));
+                    segmented = segment(edge_only, im) %lower(techniqueDropDownArr(tab_num).Value));
                     % Do bitwise AND to merge all channels
                     imagesc(currEdgeImageAxes, edge_only);
                     imagesc(currSegmentImageAxes, segmented);
