@@ -17,3 +17,4 @@ We implement many operations to do object segmentation by detecting edge using g
 
 ## Image Sources
 - https://unsplash.com/s/photos/fruit
+- https://www.tomorrowsharvest.com/store/frost-valencia-orange.html
