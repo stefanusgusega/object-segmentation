@@ -26,7 +26,5 @@ function imgOut = canny(imgIn, T1, T2, sigma)
     T2 = double(T2) / 255
 
     % Do edge detection
-    binary = edge(imgIn, 'Canny', [T1 T2], sigma);
-
-    imgOut = 255 * binary;
+    imgOut = edge(imgIn, 'Canny', [T1 T2], sigma);
 end
