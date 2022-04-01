@@ -32,5 +32,5 @@ function imgOut = segment(edgeIm, oriIm)
     % seg = imclose(imfill(edgeIm, 'holes'), strel('disk', 10));
 
     % apply to original image
-    imgOut = oriIm .* uint8(mask)
+    imgOut = oriIm .* uint8(mask);
 end
