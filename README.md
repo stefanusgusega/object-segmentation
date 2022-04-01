@@ -2,7 +2,7 @@
 This is the repository for Task 3 of Image Processing and Interpretation : Object Segmentation using MATLAB
 
 ## What is this project about?
-We implement many operations to do object segmentation by detecting edge from fruit images using gradient-based and laplacian-based approach. Gradient-based approach such as Sobel, Prewitt, Roberts, and Canny, and Laplacian-based such as Laplacian and Laplacian of Gaussian (LoG). We also implement an object segmentation operation from edge images to separate image from its background. There is a GUI for those operations, so it can load image that you desire. This project is implemented using MATLAB.
+We implement many operations to do object segmentation by detecting edge using gradient-based and laplacian-based approach. Gradient-based approach such as Sobel, Prewitt, Roberts, and Canny, and Laplacian-based such as Laplacian and Laplacian of Gaussian (LoG). We also implement object segmentation operations from edge images to separate the object from its background. There is a GUI for those operations, so it can load image that you desire. This project is implemented using MATLAB.
 
 ## How to run the GUI?
 1. Make sure you've installed MATLAB on your device.
