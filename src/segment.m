@@ -1,4 +1,4 @@
-function imgOut = segment(edgeIm, oriIm)
+function imgOut = segment(edgeIm, oriIm, technique)
     %segment - Description
     %
     % Syntax: imgOut = segment(edgeIm)
@@ -10,8 +10,12 @@ function imgOut = segment(edgeIm, oriIm)
     mask = imdilate(mask, strel('line', 3, 135));
 
     mask = imdilate(mask, strel('disk', 5));
-
-    mask = imfill(mask, 8, 'holes');
+    
+    if ~strcmp(technique, 'sobel') && ~strcmp(technique, 'prewitt')
+        disp(technique);
+        mask = imfill(mask, 8, 'holes');
+        imshow(mask);
+    end
 
     % seg = imclose(imfill(edgeIm, 'holes'), strel('disk', 10));
     imgOut = oriIm .* uint8(mask)
