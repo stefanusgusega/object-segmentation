@@ -58,6 +58,7 @@ classdef app_exported < matlab.apps.AppBase
         end
         
         function updateImage(app, fname, tab_num)
+            techniqueDropDownArr = [app.GradientTechniqueDropDown, app.LaplacianTechniqueDropDown];
             % Read the image
             try
                 im = imread(fname);
@@ -83,15 +84,20 @@ classdef app_exported < matlab.apps.AppBase
             switch size(im,3)
                 case 1
                     % Display the grayscale image
-                    imgOut = getOutput(app, im, tab_num);
-                    imagesc(currEdgeImageAxes, imgOut);
+                    edge_only = getOutput(app, im, tab_num);
+                    segmented = segment(edge_only, im, lower(techniqueDropDownArr(tab_num).Value));
+                    imagesc(currEdgeImageAxes, edge_only);
+                    imagesc(currSegmentImageAxes, segmented);
 
                 case 3
-                    firstCh = getOutput(app, im(:,:,1), tab_num);
-                    secondCh = getOutput(app, im(:,:,2), tab_num);
-                    thirdCh = getOutput(app, im(:,:,3), tab_num);
+                    edge_1 = getOutput(app, im(:,:,1), tab_num);
+                    edge_2 = getOutput(app, im(:,:,2), tab_num);
+                    edge_3 = getOutput(app, im(:,:,3), tab_num);
+                    edge_only = edge_1 & edge_2 & edge_3;
+                    segmented = segment(edge_only, im, lower(techniqueDropDownArr(tab_num).Value));
                     % Do bitwise AND to merge all channels
-                    imagesc(currEdgeImageAxes, firstCh & secondCh & thirdCh);
+                    imagesc(currEdgeImageAxes, edge_only);
+                    imagesc(currSegmentImageAxes, segmented);
 
                     % Alternatively. convert to grayscale first
 %                     imgOut = getOutput(app, rgb2gray(im), tab_num);
@@ -104,20 +110,20 @@ classdef app_exported < matlab.apps.AppBase
             end 
         end
         
-        function imgOut = getOutput(app, im, tab_num)
+        function edge_only = getOutput(app, im, tab_num)
+            edge_only = im;
             switch (tab_num)
                 case 1
                     % For Gradient Tab
-                    imgOut = im;
                     technique = lower(app.GradientTechniqueDropDown.Value);
                     if strcmp(technique, 'canny')
                         T1 = str2num(app.GradientT1EditField.Value);
                         T2 = str2num(app.GradientT2EditField.Value);
                         sigma = app.GradientSigmaEditField.Value;
-                        imgOut = detect_edge(im, technique, [], sigma, [], T1, T2, []);
+                        edge_only = detect_edge(im, technique, [], sigma, [], T1, T2, []);
                     else
                         T = str2num(app.GradientThresholdEditField.Value);
-                        imgOut = detect_edge(im, technique, T, [], [], [], [], []);
+                        edge_only = detect_edge(im, technique, T, [], [], [], [], []);
                     end
 
                 
@@ -128,12 +134,13 @@ classdef app_exported < matlab.apps.AppBase
                     version = lower(app.LaplacianVersionDropDown.Value);
                     sigma = app.LaplacianSigmaEditField.Value;
                     maskDim = str2num(app.LaplacianMaskDimensionEditField.Value);
-                    imgOut = detect_edge(im, technique, threshold, sigma, version, [], [], maskDim);
+                    edge_only = detect_edge(im, technique, threshold, sigma, version, [], [], maskDim);
                 
                 otherwise
                     % Error when the tab is undefined
                     uialert(app.UIFigure, 'Tab invalid.', 'Image Error');
                     return;
+                
             end
         end
     end
