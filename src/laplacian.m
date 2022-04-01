@@ -6,7 +6,7 @@ function mask = laplacian(version)
 
     % Check the version
     if ~ismember(version, {'original' 'diagonal'})
-        throw(MException('VersionError:wrongVersion', "The Laplacian versio should be one of these: 'original' or 'diagonal'. Current: %s.", version))
+        throw(MException('VersionError:wrongVersion', "The Laplacian version should be one of these: 'original' or 'diagonal'. Current: %s.", version))
     end
 
     if strcmp(version, 'original')

@@ -7,13 +7,13 @@ function [imgOut] = detect_edge(imgIn, operator, T, sigma, laplacian_version, T1
         throw(MException('ImageError:sizeNotOne', 'The input image should be 1D array. Current: %dD array.', dim))
     end
 
-    % Check if threshold defined. If not, then set automatically to 127
+    % Check if threshold defined. If not, then set automatically.
     if (nargin == 2 | isempty(T))
         T = 0.09 * max(imgIn, [], 'all');
     end
 
-    if (~(T >= 0 && T <= 255))
-        throw(MException('RangeError:outOfRange', 'The T should be in range [0, 255]. Current: T = %d', T));
+    if (~(T > 0 && T < 255))
+        throw(MException('RangeError:outOfRange', 'The T should be in range (0, 255). Current: T = %d', T));
     end
 
     % Check if mask_dim defined. If not, then set automatically based on sigma
