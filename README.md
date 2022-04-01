@@ -9,7 +9,7 @@ We implement many operations to do object segmentation by detecting edge using g
 2. Go to ```src/``` folder.
 3. Double-click ```app.mlapp```.
 4. A window will be opened and the GUI is being run and every tab is already initiated with images.
-5. Sample images for every task can be found in the 'images' folder.
+5. Sample images for every task can be found in the ```images/``` folder.
 
 ## 🌱 Authors
 - 13518089 Annisa Rahim
